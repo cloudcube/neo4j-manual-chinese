@@ -16,6 +16,12 @@
 18.18.16. Modify the graph while traversing
 18.18.17. Flow algorithms with Gremlin
 18.18.18. Script execution errors
+Gremlin是一个基于Groovy的图形遍历语言。它提供了一个分厂富有边县里的方式显示脚本遍历一个Neo4j图。
+这个插件提供了一个端点发送Gremlin脚本到Neo4j服务器。在数据库服务端执行脚本并返回作为Neo4j节点和关系表示的结果。这使整个REST API类型一致。当返回Neo4j Node,Relationshipo或者Graph表示结果相当冗长。另一个方面，知识放回属性就像在Section 18.18.4, “Send a Gremlin Script - JSON encoded with table results”示例响应适合具体的需求。
+警告
+Gremlin插件让你执行任意Groovy代码通过高级选项。在托管和开发的环境中，这可能构成安全风险。在这些情况下，可以考虑像 Chapter 15, Cypher Query Language使用声明方法或者编写自己的服务端插件执行有趣的Gremlin脚本或Java例子。查看 Section 10.1, “Server Plugins” 或者将强你服务器安全，查看 Section 24.1, “Securing access to the Neo4j Server”。
+小技巧
+当从像g.v(0).in()的管道返回节后，确保遍历结果为了不返回管道对象的内容，就像g.v(0).in().iterate().更多说明，查看 Gremlin Troubleshooting
 18.18.1. 发送一个已经编码的Gremlin脚本
 在这个示例中，脚本作为编码的URL将本发送，图已经被Neo4j自动索引，所以我们可以查找节点上的名称属性。
 建立脚本源文件
