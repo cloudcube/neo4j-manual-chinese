@@ -1,7 +1,12 @@
-18.15.1. Execute multiple operations in batch
-18.15.2. Refer to items created earlier in the same batch job
-18.15.3. Execute multiple operations in batch streaming
-18.15.1. 批处理中执行多个操作
+批处理操作
+========  
+
+18.15.1. [批处理中执行多个操作](#multiexec)  
+18.15.2. [在相同的批处理任务中引用先前创建的项目](#prefixprojs)  
+18.15.3. [在批处理流中执行多个操作](#execmultiop)  
+-------------------
+<h2 id="multiexec">18.15.1. 批处理中执行多个操作</h2>  
+
 它允许你通过一个单一的HTTP调用执行多个API的调用，这显著提高了大范围的插入和更新操作的性能。
 批处理期望获得一批工作描述作为输入，每个工作描述通过正常服务器的API要执行的一个动作。
 这个服务是事务性的。如果任何操作失败（就会返回一个non-2xx HTTP状态代码），事物将回滚并且所有改变将被取消。
@@ -10,7 +15,9 @@
 你可能会提供一个body属性，和一个id属性来帮助你跟踪响应，尽管响应被保证被接收到的返回相同的工作描述
 下面概括了不同部分的工作描述
 
-请求示例
+请求示例  
+
+```
 POST http://localhost:7474/db/data/batch
 Accept: application/json
 Content-Type: application/json
@@ -39,8 +46,12 @@ Content-Type: application/json
     "age" : 1
   },
   "id" : 3
-} ]
-响应示例
+} ]  
+```  
+
+响应示例  
+
+```
 200: OK
 Content-Type: application/json
 [ {
@@ -114,12 +125,19 @@ Content-Type: application/json
     }
   },
   "from" : "/node"
-} ]
-18.15.2. 在相同的批处理任务中引用先前创建的项目
-批量操作API允许你引用从随后的工作描述中创建资源返回的URI，在相同的批处理调用。
+} ]  
+```  
 
-在接下来的工作中，使用{[JOB ID]}特殊语法注入到URIs从被创建到JSON字符串中的资源
-请求示例
+<h2 id="prefixprojs>18.15.2. 在相同的批处理任务中引用先前创建的项目</h2>  
+  
+
+批量操作API允许你引用从随后的工作描述中创建资源返回的URI，在相同的批处理调用。  
+  
+在接下来的工作中，使用{[JOB ID]}特殊语法注入到URIs从被创建到JSON字符串中的资源  
+
+请求示例  
+
+```
 POST http://localhost:7474/db/data/batch
 Accept: application/json
 Content-Type: application/json
@@ -157,8 +175,12 @@ Content-Type: application/json
     "value" : "2010",
     "uri" : "{3}"
   }
-} ]
-响应示例
+} ]  
+```
+
+响应示例  
+
+```
 200: OK
 Content-Type: application/json
 [ {
@@ -242,10 +264,15 @@ Content-Type: application/json
     "indexed" : "http://localhost:7474/db/data/index/relationship/my_rels/since/2010/119"
   },
   "from" : "/index/relationship/my_rels"
-} ]
+} ]  
+```  
 
-18.15.3. 在批处理流中执行多个操作
-请求示例
+
+<h2 id="#execmultiop">18.15.3. 在批处理流中执行多个操作</h2>  
+
+请求示例  
+
+```
 POST http://localhost:7474/db/data/batch
 Accept: application/json
 Content-Type: application/json
@@ -275,8 +302,12 @@ X-Stream: true
     "age" : 1
   },
   "id" : 3
-} ]
-响应示例
+} ]  
+```
+
+响应示例  
+
+```  
 200: OK
 Content-Type: application/json
 [ {
@@ -355,7 +386,8 @@ Content-Type: application/json
   },
   "location" : "http://localhost:7474/db/data/node/71",
   "status" : 201
-} ]
+} ]  
+```
 
 
 
